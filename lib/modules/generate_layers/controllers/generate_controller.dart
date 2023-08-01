@@ -67,6 +67,7 @@ class GenerateController {
               'Errors',
               'Model',
               'ModelJS',
+              'Repository',
             ]
           },
           'layerContent'
@@ -167,6 +168,23 @@ class GenerateController {
               ),
             );
           }
+          break;
+        case 'Repository':
+          final result = await generateDomainController.generateRepository(
+            anwers['name'],
+            anwers['path'],
+            anwers['path'],
+          );
+
+          // if (!result) {
+          //   await checkIfDirectoryExists(
+          //     layer: 'infra',
+          //     call: (String path) => generateDomainController.generateRepository(
+          //       anwers['name'],
+          //       '$path/models',
+          //     ),
+          //   );
+          // }
           break;
         default:
       }

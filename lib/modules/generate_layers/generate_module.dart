@@ -1,8 +1,10 @@
 import 'package:clean_dart_cli/modules/generate_layers/controllers/generate_controller.dart';
 import 'package:clean_dart_cli/modules/generate_layers/usecases/generate_error.dart';
 import 'package:clean_dart_cli/modules/generate_layers/usecases/generate_model_js.dart';
+import 'package:clean_dart_cli/modules/generate_layers/usecases/generate_repository.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_error.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_model_js.dart';
+import 'package:clean_dart_cli/shared/interfaces/igenerate_repository.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../shared/interfaces/igenerate_entity.dart';
@@ -27,6 +29,7 @@ class GenerateModule {
     getIt.registerLazySingleton<IGenerateModelJs>(() => GenerateModelJs());
     getIt.registerLazySingleton<IGenerateEntity>(() => GenerateEntity());
     getIt.registerLazySingleton<IGenerateUsecases>(() => GenerateUsecases());
+    getIt.registerLazySingleton<IGenerateRepository>(() => GenerateRepository());
     getIt.registerLazySingleton<IGenerateError>(() => GenerateError());
     getIt.registerLazySingleton<GenerateDomain>(() => GenerateDomain());
     getIt.registerLazySingleton<GenerateInfra>(() => GenerateInfra());
@@ -65,6 +68,7 @@ class GenerateModule {
         getIt.get<IGenerateModel>(),
         getIt.get<IGenerateError>(),
         getIt.get<IGenerateModelJs>(),
+        getIt.get<IGenerateRepository>(),
       ),
     );
   }
