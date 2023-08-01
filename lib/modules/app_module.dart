@@ -21,7 +21,7 @@ class AppModule {
         'entity',
         'model',
         'modelJs',
-        'error'
+        'error',
         'repository',
       ],
       help: 'command to generate something',
