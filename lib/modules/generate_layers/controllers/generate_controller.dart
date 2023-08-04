@@ -2,6 +2,7 @@ import 'package:cli_dialog/cli_dialog.dart';
 
 import 'generate_domain_controller.dart';
 import 'generate_layer_controller.dart';
+import 'package:clean_dart_cli/shared/utils/output_utils.dart' as output;
 
 class GenerateController {
   final GenerateDomainController generateDomainController;
@@ -170,21 +171,21 @@ class GenerateController {
           }
           break;
         case 'Repository':
-          final result = await generateDomainController.generateRepository(
+          await generateDomainController.generateRepository(
             anwers['name'],
             anwers['path'],
             anwers['path'],
           );
 
-          // if (!result) {
-          //   await checkIfDirectoryExists(
-          //     layer: 'infra',
-          //     call: (String path) => generateDomainController.generateRepository(
-          //       anwers['name'],
-          //       '$path/models',
-          //     ),
-          //   );
-          // }
+          break;
+        case 'Presentation':
+          output.warn('generating presentation 21212....');
+
+          await generateDomainController.generatePresentation(
+            anwers['name'],
+            anwers['path'],
+          );
+
           break;
         default:
       }

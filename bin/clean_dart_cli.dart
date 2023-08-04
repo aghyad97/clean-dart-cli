@@ -100,6 +100,16 @@ void main(List<String> arguments) {
             output.error('Missing arguments, especific your repository name');
           }
           break;
+        case 'presentation':
+          if (arguments.length > 3) {
+            generateController.generateDomainController.generatePresentation(
+              arguments[3],
+              arguments[2],
+            );
+          } else {
+            output.error('Missing arguments, especific your repository name');
+          }
+          break;
         default:
       }
 

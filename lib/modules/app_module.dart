@@ -23,6 +23,7 @@ class AppModule {
         'modelJs',
         'error',
         'repository',
+        'presentation',
       ],
       help: 'command to generate something',
     );

@@ -3,6 +3,7 @@ import 'package:clean_dart_cli/shared/interfaces/igenerate_entity.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_error.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_model.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_model_js.dart';
+import 'package:clean_dart_cli/shared/interfaces/igenerate_presentation.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_repository.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_usecases.dart';
 import 'package:clean_dart_cli/shared/utils/output_utils.dart' as output;
@@ -15,6 +16,7 @@ class GenerateDomainController {
   final IGenerateError _generateError;
   final IGenerateModelJs _generateModelJs;
   final IGenerateRepository _generateRepository;
+  final IGeneratePresentation _generatePresentation;
 
   GenerateDomainController(
     this._generateUsecases,
@@ -23,6 +25,7 @@ class GenerateDomainController {
     this._generateError,
     this._generateModelJs,
     this._generateRepository,
+    this._generatePresentation,
   );
 
   Future<bool> generateUsecase(String usecaseName, String path) async {
@@ -95,14 +98,35 @@ class GenerateDomainController {
     }
   }
 
-  Future<bool> generateRepository(String repositoryName, String domainPath, String dataPath) async {
+  Future<bool> generateRepository(
+      String repositoryName, String domainPath, String dataPath) async {
     output.warn('generating repoistory $repositoryName....');
     var domainPathNomalized = p.normalize('${p.current}/$domainPath');
     var dataPathNomalized = p.normalize('${p.current}/$dataPath');
     try {
-      var result = await _generateRepository.call(repositoryName, domainPathNomalized, dataPathNomalized);
+      var result = await _generateRepository.call(
+          repositoryName, domainPathNomalized, dataPathNomalized);
       if (result) {
         output.title('$repositoryName created');
+        return true;
+      }
+      output.error('Directory not exists');
+      return false;
+    } on FileExistsError catch (e) {
+      output.error(e.message);
+      return false;
+    }
+  }
+
+  Future<bool> generatePresentation(
+      String presentationName, String path) async {
+    output.warn('generating presentation $presentationName....');
+    var pathNomalized = p.normalize('${p.current}/$path');
+    try {
+      var result =
+          await _generatePresentation.call(presentationName, pathNomalized);
+      if (result) {
+        output.title('$presentationName created');
         return true;
       }
       output.error('Directory not exists');
