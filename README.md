@@ -108,6 +108,12 @@ $ clean-dart gen error /user/domain/error User
 
 ![screenshots/error.png](https://github.com/sthormio/clean-dart-cli/blob/main/screenshots/error.png?raw=true)
 
+how to generate presentation layer
+
+```
+dart ../clean-dart-cli/bin/clean_dart_cli.dart gen presentation lib/presentation lib/core/navigation/app_routes.json lib/core/navigation/app_routes.dart settings
+```
+
 ## Upgrade Clean Dart Cli
 
 ```dart

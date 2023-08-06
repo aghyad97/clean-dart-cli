@@ -184,6 +184,8 @@ class GenerateController {
           await generateDomainController.generatePresentation(
             anwers['name'],
             anwers['path'],
+            anwers['path'],
+            anwers['path'],
           );
 
           break;

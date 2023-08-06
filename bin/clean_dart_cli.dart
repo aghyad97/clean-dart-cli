@@ -103,8 +103,10 @@ void main(List<String> arguments) {
         case 'presentation':
           if (arguments.length > 3) {
             generateController.generateDomainController.generatePresentation(
-              arguments[3],
+              arguments[5],
               arguments[2],
+              arguments[3],
+              arguments[4],
             );
           } else {
             output.error('Missing arguments, especific your repository name');

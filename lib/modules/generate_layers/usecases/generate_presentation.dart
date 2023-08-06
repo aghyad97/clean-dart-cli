@@ -1,14 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:clean_dart_cli/shared/errors/file_exists_error.dart';
 import 'package:clean_dart_cli/shared/interfaces/igenerate_presentation.dart';
 import 'package:clean_dart_cli/shared/templates/presentation_template.dart';
+import 'package:clean_dart_cli/shared/templates/routes_template.dart';
 import 'package:recase/recase.dart';
 import 'package:path/path.dart' as p;
 
 class GeneratePresentation implements IGeneratePresentation {
   @override
-  Future<bool> call(String presentationName, String path) async {
+  Future<bool> call(String presentationName, String path,
+      String routesJsonFilePath, String routesDartFilePath) async {
     var isValidDirectory = await Directory(path).exists();
 
     bool bindingFileExists =
@@ -60,6 +63,18 @@ class GeneratePresentation implements IGeneratePresentation {
       var screenContent = screenTemplate(presentationName, packageName);
       File('$path/${presentationName}/${ReCase(presentationName).snakeCase}_screen.dart')
           .writeAsStringSync(screenContent);
+
+      final jsonFile = File(routesJsonFilePath);
+      final dartFile = File(routesDartFilePath);
+      final jsonString = jsonFile.readAsStringSync();
+
+      final jsonMap = json.decode(jsonString) as Map<String, dynamic>;
+      jsonMap[presentationName] = '/${presentationName}';
+      final classString = generateRoutesClass(jsonMap);
+
+      dartFile.writeAsStringSync(classString);
+      jsonFile.writeAsStringSync(json.encode(jsonMap));
+      print(classString);
       return true;
     } else {
       return false;

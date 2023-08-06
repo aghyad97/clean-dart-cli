@@ -118,13 +118,13 @@ class GenerateDomainController {
     }
   }
 
-  Future<bool> generatePresentation(
-      String presentationName, String path) async {
+  Future<bool> generatePresentation(String presentationName, String path,
+      String routesJsonFilePath, String routesDartFilePath) async {
     output.warn('generating presentation $presentationName....');
     var pathNomalized = p.normalize('${p.current}/$path');
     try {
-      var result =
-          await _generatePresentation.call(presentationName, pathNomalized);
+      var result = await _generatePresentation.call(presentationName,
+          pathNomalized, routesJsonFilePath, routesDartFilePath);
       if (result) {
         output.title('$presentationName created');
         return true;
